@@ -1,0 +1,74 @@
+<div>
+  <h3>Playlists</h3>
+  <hr />
+  <div class="custom_box">
+
+    <div class="__card">
+      <img alt="album art"
+        src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
+        class="img-fluid" />
+      <h3>Playlist 1</h3>
+      <div class="playlist-footer">
+        <p>Custom playlist for your interest</p> <br />
+        <a href="/playlist/1"><i class="fa-solid fa-circle-play"></i></a>
+      </div>
+    </div>
+    <div class="__card">
+      <img alt="album art"
+        src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
+        class="img-fluid" />
+      <h3>Playlist 1</h3>
+      <div class="playlist-footer">
+        <p>Custom playlist for your interest</p> <br />
+        <a href="/playlist/1"><i class="fa-solid fa-circle-play"></i></a>
+      </div>
+    </div>
+    <div class="__card">
+      <img alt="album art"
+        src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
+        class="img-fluid" />
+      <h3>Playlist 1</h3>
+      <div class="playlist-footer">
+        <p>Custom playlist for your interest</p> <br />
+        <a href="/playlist/1"><i class="fa-solid fa-circle-play"></i></a>
+      </div>
+    </div>
+    <div class="__card">
+      <img alt="album art"
+        src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
+        class="img-fluid" />
+      <h3>Playlist 1</h3>
+      <div class="playlist-footer">
+        <p>Custom playlist for your interest</p> <br />
+        <a href="/playlist/1"><i class="fa-solid fa-circle-play"></i></a>
+      </div>
+    </div>
+
+  </div> <br /><br />
+</div>
+
+<script>
+  // Fetch the playlists from the API
+// Fetch the playlists from the API
+fetch('/api/playlists')
+  .then(response => response.json())
+  .then(playlists => {
+    // Get the existing cards
+    const cards = document.querySelectorAll('.__card');
+
+    // Loop through the playlists and append them to the cards
+    playlists.forEach((playlist, index) => {
+      const card = cards[index];
+      const image = card.querySelector('img');
+      const title = card.querySelector('h3');
+      const link = card.querySelector('a');
+
+      image.src = playlist.images[0].url;
+      title.textContent = playlist.name;
+      link.href = playlist.external_urls.spotify;
+    });
+  })
+  .catch(error => console.error(error));
+
+
+</script>
