@@ -1,6 +1,7 @@
 
 
 body {
+    transition: none;
     background: #efefef!important;
     font-family: ulp-font, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
   }

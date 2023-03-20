@@ -1,3 +1,1 @@
-# Music-Player by Thor 
- 
-dsfsdfsdffd
+# Music-Player by lakhabhayi@gmail.com

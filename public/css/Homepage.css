@@ -1,95 +1,148 @@
-.custom_box{
+.custom_box {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-    gap: 20px;
-
-}
-
-
-.__card{
+    gap: 30px;
+  }
+  
+  .__card {
     background-color: #fff;
     border: 1px solid #e6e6e6;
     border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 5px 10px;
     padding-bottom: 0;
     position: relative;
-    width: 25%;
-}
-
-.__card:hover{
-    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    width: 20%;
+    min-height: 180px;
+  }
+  
+  .__card:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
-}
-
-.__card img{
+  }
+  
+  .__card img {
     width: 100%;
-}
-
-.__card h3{
-    font-size: 1.2em;
-    font-weight: 600;
+  }
+  
+  .__card h3 {
+    font-size: 1em;
+    font-weight: 500;
     margin: 0;
     padding: 0;
     margin-top: 10px;
     color: #333;
-}
-
-.__card p{
+  }
+  
+  .__card p {
     font-size: 1em;
     font-weight: 400;
     margin: 0;
     padding: 0;
     color: #333;
-}
+  }
+  
 
-.playlist-footer{
+  
+  .playlist-footer {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     margin: 0;
     padding: 5px 0;
-}
-
-.playlist-footer a{
+  }
+  
+  .playlist-footer a {
     font-size: 0.8em;
     font-weight: 400;
     margin: 0;
     padding: 0;
     margin-left: 10px;
     text-decoration: none;
-}
-
-.playlist-footer i{
+  }
+  
+  .playlist-footer i {
     font-size: 2.5rem;
     color: #2f80ed;
-}
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .custom_box {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .__card {
+      width: 100%;
+    }
+  
+    .__card img {
+      min-height: 150px;
+    }
+  
+    .__card a {
+      font-size: 1em;
+    }
+  
+    .playlist-footer {
+      padding: 10px 0;
+    }
+  
+    .playlist-footer a {
+      font-size: 0.7em;
+      margin-left: 5px;
+    }
+  
+    .playlist-footer i {
+      font-size: 2rem;
+    }
+  }
+  
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .custom_box {
+      flex-wrap: wrap;
+    }
+  
+    .__card {
+      width: 40%;
+    }
+  
+    .__card img {
+      min-height: 150px;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .__card {
+      min-height: 200px;
+    }
+  }
+  
 
-@media screen and (max-width: 768px){
-    .custom_box{
-        flex-direction: column;
-    }
-    .__card{
-        width: 100%;
-    }
-}
+  .__card a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 4px;
+    color: #2f80ed;
+    text-decoration: none;
 
-@media screen and (min-width: 992px){
-    .custom_box{
-        flex-direction: row;
-    }
-    .__card{
-        width: 100%;
-    }
-    .card p{
-        font-size: 0.5em;
-    }
-}
+  }
+
+  .__card a:hover {
+    transform: scale(1.1);
+    color: #2f80ed;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .__card a i {
+    font-size: 2rem!important;
+  }

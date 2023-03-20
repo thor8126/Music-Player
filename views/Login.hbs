@@ -1,5 +1,18 @@
 <link rel="stylesheet" href="/css/Login.css">
 <style>
+    .hoverr:hover{
+        color: #0095f6;
+    }
+    *{
+        transition: none;
+    }
+    button{
+        transition: none;
+       
+    }
+    button:hover{
+        transition: none;
+    }
    .custom_1{
         background-color: white,
         color: white,
@@ -157,6 +170,7 @@
                                 name="action"
                                 value="default"
                                 class="c8fca5323 cb6b7c993 cee1c07cc c850d9a60 _button-login-password"
+                                style=" background-color: #0095f6!important;"
                             >
                                 Login
                             </button>
@@ -164,7 +178,7 @@
                     </form>
                     <br/>
                     <div class="ce5b0411e" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top:-20px;">
-                        <button class="custom_1 c8fca5323 cb6b7c993 cee1c07cc c850d9a60 _button-login-password" >
+                        <button onclick="redirecttogoogle()" class="custom_1 c8fca5323 cb6b7c993 cee1c07cc c850d9a60 _button-login-password" style="background-color: white; color:black;" >
                             <img class="mr-10" src="https://img.icons8.com/color/24/000000/google-logo.png" alt="google" />Login with Google
                         </button>
                         
@@ -172,7 +186,9 @@
                     <div class="ulp-alternate-action  _alternate-action __s16nu9">
                         <p class="cc8275a07 c8209dedc c0281221d">
                             Don&#39;t have an account?
-                            <a class="c9e66e30c cc8e77083" href="/register">
+                            <a class="c9e66e30c cc8e77083 hoverr" href="/register" 
+                                
+                            >
                                 Sign up
                             </a>
                         </p>
@@ -183,5 +199,9 @@
     </section>
 </div>
 
-
+<script>
+    function redirecttogoogle(){
+        window.location.href = "/login/federated/google";
+    }
+</script>
 <script src="/js/Login.js"></script>

@@ -29,6 +29,7 @@
     font-size: 12px;
     margin-right: 10px;
     margin-top: 10px;
+    width: 100px;
 }
 
 .music_btns button {
@@ -86,7 +87,7 @@
     width: 100%;
 }
 
-.current_time{
+.current_time,.total_time{
     color: #fff;
     font-size: 14px;
     margin-right: 10px;

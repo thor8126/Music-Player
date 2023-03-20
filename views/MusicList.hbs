@@ -1,3 +1,5 @@
+
+
 <div class="list_header">
     <div class="left_side ">
         <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
@@ -14,7 +16,7 @@
 <hr>
 
 <div class="toolbar">
-    <div class="left_side">
+    <div class="">
         <div class="btn">
             <i class="fas fa-play"></i>
         </div>
@@ -47,5 +49,43 @@
 </div>
 <hr>
 
+<div class="table" id="playlist-table-body">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{!-- <tr>
+                <td>1</td>
+                <td><a href="#">ILY (I Love You Baby)</a></td>
+                <td>Surf Mesa feat. Emilee</td>
+                <td>ILY</td>
+                <td>2:56</td>
+            </tr> --}}
 
-<div class="table"></div>
+            {{#each tracks}}
+            <tr >
+                <td id="id">{{@index}}</td>
+                <td><button id="list_play" data-track-id="{{this.id}}" style="text-align: left;">{{this.name}}</button></td>
+                <td>{{this.artist}}</td>
+                <td>{{this.album}}</td>
+                <td>{{this.duration}}</td>
+            </tr>
+            {{/each}}
+            
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    
+
+
+</script>

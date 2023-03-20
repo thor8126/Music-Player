@@ -37,26 +37,168 @@
     font-size: 5rem;
 }
 
-.toolbar{
+.list_header h4, .list_header p{
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px){
+    .left_side{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .left_side img{
+        width: 80%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .rr{
+        width: 80%;
+        text-align: center;
+    }
+
+    .rr h1{
+        font-size: 3rem;
+    }
+}
+
+
+/* //toolbar */
+
+.toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin: 0;
     padding: 0;
-}
-
-.toolbar i{
+  }
+  
+  .toolbar i {
     font-size: 1.5rem;
     color: #28a745;
     margin: 0 10px;
-}
-
-.toolbar i:hover{
+  }
+  
+  .toolbar i:hover {
     color: #fff;
     cursor: pointer;
     transition: 0.1s;
     transform: scale(1.2);
     outline: none;
     border: 0;
-}
+  }
+  
+  @media screen and (max-width: 768px) {
+    .toolbar {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .toolbar > div {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .toolbar .left_side,
+    .toolbar .right_side {
+      margin: 8px 0;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .toolbar .left_side img {
+      min-width: 50%;
+      max-width: 100%;
+    }
+  
+    .toolbar .right_side {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .toolbar i {
+      margin: 0 5px;
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* default styles for the table */
+.table {
+    overflow-x: auto;
+    margin-top: 16px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  th,
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #282828;
+  }
+  
+  thead {
+    background-color: #282828;
+  }
+  
+  th {
+    text-align: left;
+  }
+  
+  tbody tr:hover {
+    background-color: #282828;
+  }
+  
+  tbody td:first-child {
+    font-weight: bold;
+    color: #1db954;
+  }
+  
+  /* media queries for responsive design */
+  @media only screen and (max-width: 768px) {
+    /* reduce font size for small screens */
+    table {
+      font-size: 12px;
+    }
+    
+    /* reduce padding for small screens */
+    th, td {
+      padding: 6px 10px;
+    }
+  }
+  
+
+button{
+    background:transparent;
+    border:0;
+    outline:0;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1rem;
+  }

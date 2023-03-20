@@ -1,6 +1,7 @@
 body {
     background: #efefef!important;
     font-family: ulp-font, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif;
+    transition: none!important;
   }
   .loader-body{
     position: absolute;
