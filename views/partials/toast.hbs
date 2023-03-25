@@ -1,0 +1,63 @@
+<style>
+    @keyframes righttoleft {
+        0% {
+            right: -300px;
+        }
+
+        50% {
+            right: 20px;
+        }
+
+        100% {
+            right: 10px;
+        }
+    }
+
+    @keyframes fadeout {
+        0% {
+            right: 10px;
+        }
+
+        100% {
+            right:
+                -300px;
+        }
+    }
+
+    .toast-body {
+        width: 260px;
+        height: 80px;
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position:fixed;
+        border-radius: 10px;
+        top: 10px;
+        right: -300px;
+        color: white;
+        padding: 1rem 2rem;
+        font-weight: 500;
+        animation: righttoleft 0.6s ease forwards, fadeout 0.6s ease 3s forwards;
+        
+    }
+    .bg-success {
+        background-color: #28a745;
+        color: white;
+    }
+    .bg-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+    .bg-warning {
+        background-color: #ffc107;
+        color: white;
+    }
+</style>
+
+{{!-- <div class="toast-body bg-{{message.type}} ">
+    <h3>{{message.msg}}</h3>
+</div> --}}
+<div class="toast-body bg-{{message.type}}">
+    <span>{{message.msg}}</span>
+</div>

@@ -1,0 +1,78 @@
+{{!-- this footer is when user is not logged in --}}
+
+<style>
+    .not-logged-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #181818;
+        padding: 10px 20px;
+    }
+
+    .not-logged-footer .middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .not-logged-footer .middle h6 {
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    .not-logged-footer .middle a {
+        color: #fff;
+        font-size: 1.2rem;
+        text-decoration: none;
+    }
+
+    .not-logged-footer .middle .dflex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .not-logged-footer .middle .dflex a {
+        color: #fff;
+        font-size: 1.2rem;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 10px;
+        background-color: #1db954;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    .not-logged-footer .middle .dflex a:hover{
+        background-color: #1ed760;
+    }
+
+    .footer-links{
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+</style>
+
+<div class="not-logged-footer custom_footer">
+    <div class="leftt">
+        <div class="footer-links">
+        </div>
+    </div>
+    <div class="middle">
+        <div class="footer-links">
+            <h6>Login to listen to your favorite songs</h6>
+            <div class="dflex justify-content-center">
+                <a href="/login">Login</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="rightt">
+
+    </div>
+
+</div>

@@ -3,14 +3,20 @@ const app = express();
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
 require("dotenv").config();
 const User = require("../models/User");
-
-
+const flash = require("express-flash-message");
 
 app.use(passport.initialize());
+
+
+// router.post('/login', passport.authenticate('local', { 
+//   failureRedirect: '/login',
+//   successRedirect: '/',
+//   failureFlash: true
+//  }), (req, res) => {
+//   res.redirect('/');
+// });
 
 passport.use(
   new LocalStrategy(
@@ -21,13 +27,13 @@ passport.use(
     function (email, password, done) {
       const user = User.findOne({ email: email }).then((user) => {
         if (!user) {
-          return done(null, false, { message: "Incorrect email." });
+          return done(null, false);
         }
         bcrypt.compare(password, user.password).then((isMatch) => {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: "Incorrect password." });
+            return done(null,false);
           }
         });
       });

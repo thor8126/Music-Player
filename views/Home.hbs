@@ -1,3 +1,4 @@
+{{#if user }}
 <div>
   <h3>Top Hits</h3>
   <hr />
@@ -78,14 +79,30 @@
   </div> <br />
 </div>
 
+{{else}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Music App</h1>
+      <p>Listen to your favorite music</p>
+      <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+  </div>
+</div>
+
+{{/if}}
+
 <br><br>
 
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"></script>
 <script>
-  // Fetch the playlists from the API
-// homepage
-fetch("/api/playlists")
+
+$(document).ready(function () {
+  fetch("/api/playlists")
   .then((response) => response.json())
   .then((playlists) => {
     // Get the existing cards
@@ -104,9 +121,11 @@ fetch("/api/playlists")
     });
   })
   .catch((error) => console.error(error));
+});
 
 // fetch more playlists for the second section
-fetch("/api/albums")
+$(document).ready(function () {
+  fetch("/api/albums")
   .then((response) => response.json())
   .then((album) => {
     // Get the existing cards
@@ -118,13 +137,17 @@ fetch("/api/albums")
       const image = card.querySelector("img");
       const name = card.querySelector("h3");
       const redirect = card.querySelector("a");
-
-      image.src = album.images[0].url;
       name.textContent = album.name.slice(0, 19);
       redirect.href = `/album/${album.id}`;
+      if (album.images.length > 0) {
+        image.src = album.images[0].url;
+      }
+      else{
+        image.src = "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930";
+      }
     });
   })
   .catch((error) => console.error(error));
-
+});
 
 </script>

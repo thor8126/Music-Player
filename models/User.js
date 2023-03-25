@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     name: String,
     photo: String,
     googleId: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     date: {
         type: Date,
         default: Date.now

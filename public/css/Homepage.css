@@ -76,12 +76,13 @@
   
   @media only screen and (max-width: 768px) {
     .custom_box {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
       gap: 10px;
     }
   
     .__card {
-      width: 100%;
+      width: 40%;
     }
   
     .__card img {
@@ -145,4 +146,38 @@
 
   .__card a i {
     font-size: 2rem!important;
+  }
+
+
+  @media only screen and (max-width: 570px) {
+    .custom_box {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  
+    .__card {
+      min-width: 100%;
+    }
+  
+    .__card img {
+      min-height: 150px;
+    }
+  
+    .__card a {
+      font-size: 1em;
+    }
+  
+    .playlist-footer {
+      padding: 10px 0;
+    }
+  
+    .playlist-footer a {
+      font-size: 0.7em;
+      margin-left: 5px;
+    }
+  
+    .playlist-footer i {
+      font-size: 2rem;
+    }
   }

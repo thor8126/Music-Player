@@ -83,6 +83,7 @@ button[type="submit"] {
     align-items: center;
     justify-content: flex-end;
     padding: 0 24px;
+    z-index: 100;
 }
 
 .login{
@@ -125,7 +126,7 @@ main{
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 770px) {
     .sidebar {
         width: min-content;
     }

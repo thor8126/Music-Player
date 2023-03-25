@@ -1,0 +1,66 @@
+<br>
+<center>
+  <h4>{{title}}</h4>
+</center>
+<hr>
+
+<div class="table" id="playlist-table-body">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th></th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each tracks}}
+      <tr>
+        <td id="id">{{@index}}</td>
+        <td><button id="list_play" data-track-id="{{this.id}}" style="text-align: left;">
+            {{#if image}}
+            <img class="rounded-4" src="{{this.image}}" alt="sa" width="40px" height="40px">
+            {{/if}}
+            {{this.name}}
+          </button>
+        </td>
+        <td>{{this.artist}}</td>
+        <td><button id="addtofav" data-track-id="{{this.id}}"><i class="fas fa-heart"></i></button></td>
+        <td>{{this.duration}}</td>
+        <td id="song-id" style="display: none;">{{this.id}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<br><br>
+
+
+
+<script>
+  document.querySelectorAll("#addtofav").forEach((button) => {
+    button.addEventListener("click", async function (event) {
+      event.preventDefault();
+      const trackId = this.dataset.trackId;
+      const response = await fetch(`/addtofavourites/${trackId}`, {
+        method: "GET",
+      });
+      if (response.status === 200) {
+        const heartIcon = this.querySelector(".fa-heart");
+        if (heartIcon.classList.contains("far")) {
+          heartIcon.classList.remove("far");
+          heartIcon.classList.add("fas");
+        } else {
+          heartIcon.classList.remove("fas");
+          heartIcon.classList.add("far");
+        }
+        this.removeEventListener("click", arguments.callee);
+      }
+      //refresh the page
+        location.reload();
+    });
+  });
+</script>

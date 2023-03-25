@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback',
-    profileFields: ['id', 'displayName', 'photos', 'email']
+    profileFields: ['id', 'displayName', 'photos', 'email'],
   },
   (accessToken, refreshToken, profile, done) => {
     // Use profile information to check if user already exists
@@ -22,6 +22,8 @@ passport.use(new GoogleStrategy({
         new User({
           googleId: profile.id,
           name: profile.displayName,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
           email: profile.emails[0].value,
           photo: profile.photos[0].value,
         }).save().then((newUser) => {

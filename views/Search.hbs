@@ -1,48 +1,38 @@
-
-
-
 <h1>Song Search</h1>
-<form id="search-form" class="" action="/search" method="post">
-    <div class="input-group" style="flex-wrap: nowrap;">
-        <input class="" type="text" id="search-input" name="q" required  />
-        <button type="submit" id="submit">Search</button>
-    </div>
+<form id="search-form" class="" action="/search" method="POST">
+  <div class="input-group" style="flex-wrap: nowrap;">
+    <input class="" type="text" id="search-input" name="q" required />
+    <button type="submit" id="submit">Search</button>
+  </div>
 </form>
-<div id="search-results"></div>
-{{!-- 
-<script>
-    //// search page
+<br>
 
-const form = document.querySelector("#search-form");
-const results = document.querySelector("#search-results");
+<div class="table" id="playlist-table-body" style="visibility: hidden;">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody>
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const query = document.querySelector("#search-input").value;
-  fetch(`/search?q=${encodeURIComponent(query)}`)
-    .then((response) => response.json())
-    .then((tracks) => {
-      results.innerHTML = "";
-      for (const track of tracks) {
-        const trackElement = document.createElement("div");
-        const plBtn = document.createElement("button");
-        plBtn.innerText = "Play";
-        plBtn.addEventListener("click", () => {
-          audioPlayer.src = track.preview_url;
-          audioPlayer.play();
-          isPlaying = true;
-          playButton.innerHTML = '<i class="fas fa-pause"></i>';
-        });
-        trackElement.innerHTML = `<h2>${track.name}</h2><p>by ${track.artists[0].name}</p>`;
-        trackElement.appendChild(plBtn);
-        results.appendChild(trackElement);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      results.innerHTML = "<p>There was an error searching for tracks.</p>";
-    });
-});
-</script> --}}
 
+      <tr>
+        <td id="id"></td>
+        <td id="name"><button id="list_play" data-track-id="" style="text-align: left;">
+                            <img class="rounded-4" src="{{this.image}}" alt="sa" width="40px" height="40px">
+                            Name HERE
+                    </button>
+        </td>
+        <td id="artist"></td>
+        <td id="album"></td>
+        <td id="duration"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 

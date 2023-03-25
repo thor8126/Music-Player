@@ -1,14 +1,16 @@
-
-
 <div class="list_header">
     <div class="left_side ">
-        <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930"
-            alt="sa">
+            {{#if poster}}
+            <img src="{{poster}}" alt="sa">
+            {{else}}
+            <img src="https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/12/attachment_68585523.jpg?auto=format&q=60&fit=max&w=930" alt="sa">
+            {{/if}}
+            
         <div class="rr">
             <h4>Playlist</h4>
             <h1>ILY</h1>
             <br>
-            <p>asdasd</p>
+            <p>Best Songs</p>
         </div>
     </div>
 
@@ -33,8 +35,7 @@
         </div>
         <div class="btn">
             <div class="dropdown">
-                <a class="" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
                 </a>
 
@@ -56,36 +57,74 @@
                 <th></th>
                 <th>Title</th>
                 <th>Artist</th>
-                <th>Album</th>
+                <th></th>
                 <th>Duration</th>
             </tr>
         </thead>
         <tbody>
-            {{!-- <tr>
-                <td>1</td>
-                <td><a href="#">ILY (I Love You Baby)</a></td>
-                <td>Surf Mesa feat. Emilee</td>
-                <td>ILY</td>
-                <td>2:56</td>
-            </tr> --}}
-
+     
             {{#each tracks}}
-            <tr >
+            <tr>
                 <td id="id">{{@index}}</td>
-                <td><button id="list_play" data-track-id="{{this.id}}" style="text-align: left;">{{this.name}}</button></td>
+                <td><button id="list_play" data-track-id="{{this.id}}" style="text-align: left;">
+                        {{#if image}}
+                            <img class="rounded-4" src="{{this.image}}" alt="sa" width="40px" height="40px">
+                        {{/if}}
+                        {{this.name}}
+                    </button>
+                </td>
                 <td>{{this.artist}}</td>
-                <td>{{this.album}}</td>
+                <td><button id="addtofav" data-track-id="{{this.id}}" ><i class="fa-regular fa-heart"></i></button></td>
                 <td>{{this.duration}}</td>
+                <td id="song-id" style="display: none;">{{this.id}}</td>
             </tr>
             {{/each}}
-            
+
         </tbody>
     </table>
 </div>
 
 
+
 <script>
-    
+
+document.querySelectorAll("#addtofav").forEach((button) => {
+  button.addEventListener("click", async function () {
+    event.preventDefault();
+    const trackId = this.dataset.trackId;
+    const response = await fetch(`/addtofavourites/${trackId}`, {
+      method: "GET",
+    });
+    if (response.status === 200) {
+      const heartIcon = this.querySelector(".fa-heart");
+      heartIcon.classList.toggle("fas");
+      heartIcon.classList.toggle("far");
+    } else {
+      console.error("Failed to add track to favourites.");
+    }
+  });
+});
 
 
 </script>
+
+
+<script>
+
+$(document).ready(function() {
+  var playlist = [];
+  $('#playlist-table-body tbody tr').each(function(index, element) {
+    var song = {};
+    song.id = $(element).find('#song-id').text();
+    song.name = $(element).find('td:nth-child(2)').text();
+    song.artist = $(element).find('td:nth-child(3)').text();
+    song.duration = $(element).find('td:nth-child(5)').text();
+
+    playlist.push(song);
+  });
+  console.log(playlist);
+    
+});
+
+</script>
+
