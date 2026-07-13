@@ -13,6 +13,10 @@ const currentTimeSpan = document.querySelector(".current_time");
 const totalTimeSpan = document.querySelector(".total_time");
 const songNameSpan = document.querySelector(".name");
 
+// The player only exists on logged-in pages (base1). Auth pages (base2) also
+// load this script, so bail out early when there's nothing to wire up.
+if (audioPlayer && playButton) {
+
 let isPlaying = false;
 let isMuted = false;
 let currentVolume = 1;
@@ -27,26 +31,26 @@ audioPlayer.volume = currentVolume;
 volumeSlider.value = currentVolume;
 
 
-audioPlayer.addEventListener("loadedmetadata", () => {
-  const duration = audioPlayer.duration;
-  const durationMinutes = Math.floor(duration / 60);
-  const durationSeconds = Math.floor(duration % 60);
+// format a number of seconds as m:ss
+function formatTime(totalSeconds) {
+  if (!isFinite(totalSeconds)) return "0:00";
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = Math.floor(totalSeconds % 60);
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
 
-  totalTimeSpan.textContent = `${durationMinutes}:${durationSeconds}`;
+audioPlayer.addEventListener("loadedmetadata", () => {
+  totalTimeSpan.textContent = formatTime(audioPlayer.duration);
 });
 
 audioPlayer.addEventListener("timeupdate", () => {
   const currentTime = audioPlayer.currentTime;
-  const currentTimeMinutes = Math.floor(currentTime / 60);
-  const currentTimeSeconds = Math.floor(currentTime % 60);
   const duration = audioPlayer.duration;
 
   if (!audioPlayer.paused && isFinite(duration)) {
-    const durationMinutes = Math.floor(duration / 60);
-    const durationSeconds = Math.floor(duration % 60);
     progressSlider.value = (currentTime / duration) * 100;
-    currentTimeSpan.textContent = `${currentTimeMinutes}:${currentTimeSeconds}`;
-    totalTimeSpan.textContent = `${durationMinutes}:${durationSeconds}`;
+    currentTimeSpan.textContent = formatTime(currentTime);
+    totalTimeSpan.textContent = formatTime(duration);
   }
 });
 
@@ -91,8 +95,8 @@ progressSlider.addEventListener("input", () => {
 
 
 // for playing the song on click of the song name
-document.querySelectorAll('#list_play').forEach(function (button) {
-  button.addEventListener('click', function () {
+document.querySelectorAll('.list_play').forEach(function (button) {
+  button.addEventListener('click', function (event) {
     event.preventDefault();
     var trackId = this.getAttribute('data-track-id');
     console.log(trackId);
@@ -117,11 +121,10 @@ $(document).ready(function () {
   var playlist = [];
   $('#playlist-table-body tbody tr').each(function (index, element) {
     var song = {};
-    song.id = $(element).find('#song-id').text();
+    song.id = $(element).find('.song-id').text();
     song.name = $(element).find('td:nth-child(2)').text();
     song.artist = $(element).find('td:nth-child(3)').text();
     song.duration = $(element).find('td:nth-child(5)').text();
-    song.preview_url = $(element).find('td:nth-child(6) audio').attr('src');
 
     playlist.push(song);
   });
@@ -217,3 +220,5 @@ $(document).ready(function () {
       });
   });
 });
+
+} // end: player wiring guard

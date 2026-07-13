@@ -18,18 +18,18 @@
     <tbody>
       {{#each tracks}}
       <tr>
-        <td id="id">{{@index}}</td>
-        <td><button id="list_play" data-track-id="{{this.id}}" style="text-align: left;">
+        <td>{{@index}}</td>
+        <td><button class="list_play" data-track-id="{{this.id}}">
             {{#if image}}
-            <img class="rounded-4" src="{{this.image}}" alt="sa" width="40px" height="40px">
+            <img class="rounded-4" src="{{this.image}}" alt="{{this.name}}">
             {{/if}}
             {{this.name}}
           </button>
         </td>
         <td>{{this.artist}}</td>
-        <td><button id="addtofav" data-track-id="{{this.id}}"><i class="fa-regular fa-heart"></i></button></td>
+        <td><button class="addtofav" data-track-id="{{this.id}}"><i class="far fa-heart"></i></button></td>
         <td>{{this.duration}}</td>
-        <td id="song-id" style="display: none;">{{this.id}}</td>
+        <td class="song-id" style="display: none;">{{this.id}}</td>
       </tr>
       {{/each}}
     </tbody>
@@ -42,8 +42,8 @@
 
 <script>
 
-  document.querySelectorAll("#addtofav").forEach((button) => {
-    button.addEventListener("click", async function () {
+  document.querySelectorAll(".addtofav").forEach((button) => {
+    button.addEventListener("click", async function (event) {
       event.preventDefault();
       const trackId = this.dataset.trackId;
       const response = await fetch(`/addtofavourites/${trackId}`, {

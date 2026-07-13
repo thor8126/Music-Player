@@ -1,121 +1,227 @@
+/* ===========================================================
+   Bottom player bar
+   =========================================================== */
 .custom_footer {
-    position: fixed;
-    bottom: 0;
-    z-index: 999;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 75px;
-    width: 100%;
-    padding: 0 20px;
-    background-color: #000000;
-    border-top: 1px solid #ccc;
-  }
-  
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--player-height);
+  width: 100%;
+  padding: 0 24px;
+  background-color: var(--bg-base);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --- left: track info --- */
 .logo_name {
-    display: flex;
-    align-items: center;
-    color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-primary);
+  width: 30%;
+  min-width: 180px;
 }
 
-.logo_name img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+.logo_name .name {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.name {
-    font-size: 12px;
-    margin-right: 10px;
-    margin-top: 10px;
-    width: 100px;
+.logo_name a {
+  color: var(--text-secondary);
+  font-size: 16px;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.logo_name a:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* --- center: transport + progress --- */
+.music_btns {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  width: 40%;
+  max-width: 620px;
+}
+
+.music_btns .top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .music_btns button {
-    border: none;
-    background-color: transparent;
-    font-size: 30px;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: transform 0.1s ease, color 0.2s ease;
 }
 
 .music_btns button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
+  color: var(--text-primary);
 }
 
 .music_btns button i {
-    color: #fff;
+  color: inherit;
 }
 
+/* main play/pause button as a white circle */
+#play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000;
+  margin: 0 6px;
+}
+
+#play i {
+  color: #000;
+  font-size: 16px;
+}
+
+#play:hover {
+  transform: scale(1.06);
+  color: #000;
+}
+
+.music_slider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.current_time,
+.total_time {
+  color: var(--text-secondary);
+  font-size: 12px;
+  min-width: 40px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- right: volume --- */
 .volume {
-    display: flex;
-    align-items: center;
-}
-
-.volume input {
-    margin-left: 10px;
-    width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 30%;
+  min-width: 140px;
 }
 
 .volume button {
-    margin-right: 10px;
-    font-size: 20px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    color: #ccc;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: transform 0.1s ease, color 0.2s ease;
 }
 
-
-.music_btns {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 40%;
+.volume button:hover {
+  color: var(--text-primary);
+  transform: scale(1.1);
 }
 
-.music_slider{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.volume input {
+  width: 100px;
 }
 
-.music_slider input{
-    width: 100%;
+/* ===========================================================
+   Range slider styling (progress + volume)
+   =========================================================== */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: #4d4d4d;
+  cursor: pointer;
+  outline: none;
 }
 
-.current_time,.total_time{
-    color: #fff;
-    font-size: 14px;
-    margin-right: 10px;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 
-.music_slider input::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #1db954;
-    cursor: pointer;
+input[type="range"]:hover::-webkit-slider-thumb {
+  opacity: 1;
 }
 
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ffffff;
+  opacity: 0;
+}
 
+input[type="range"]:hover::-moz-range-thumb {
+  opacity: 1;
+}
+
+.music_slider input,
+.volume input {
+  width: 100%;
+}
+
+.music_slider:hover input[type="range"],
+.volume:hover input[type="range"] {
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) 50%,
+    #4d4d4d 50%
+  );
+}
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
 @media screen and (max-width: 768px) {
-    .music_btns {
-        width: 100%;
-    }
-    .volume{
-        display: none;
-    }
-    .music_btns .top{
-        margin-left: 30px;
-    }
-}
+  .custom_footer {
+    padding: 0 12px;
+  }
 
+  .music_btns {
+    width: 60%;
+  }
 
-.top i {
-    color: #fff;
-    margin-left: 10px;
+  .volume {
+    display: none;
+  }
+
+  .logo_name {
+    width: 40%;
+    min-width: 0;
+  }
 }

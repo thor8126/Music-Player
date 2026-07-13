@@ -3,11 +3,13 @@ const router = express.Router();
 const spotifyApi = require("../config/spotifyController");
 const User = require("../models/User");
 const isAuthenticated = require("../config/isAuthenticated");
-const { searchMusic, playlists, albums ,playlistId, trackId, albumId, addToFavourites, fetchFavourites } = require("../controllers/musicController");
+const { searchMusic, playlists, albums ,playlistId, trackId, albumId, addToFavourites, fetchFavourites, artists } = require("../controllers/musicController");
 
 router.get("/api/playlists",isAuthenticated, playlists);
 
 router.get("/api/albums",isAuthenticated, albums);
+
+router.get("/api/artists",isAuthenticated, artists);
 
 router.get("/playlist/:id", isAuthenticated, playlistId);
 

@@ -19,8 +19,6 @@ module.exports.searchMusic = async (req, res) => {
     //filter out the tracks that don't have an preview url
     const filteredResults = tracks.items.filter((track) => track.preview_url);
     //simplify the results
-    
-
     const simplifiedResults = filteredResults.map((track) => ({
       name: track.name,
       artist: track.artists[0].name,
@@ -37,31 +35,32 @@ module.exports.searchMusic = async (req, res) => {
       tracks: simplifiedResults,
       user: user,
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     res.sendStatus(500);
   }
 };
 
-//get the 4 featured playlists and render them to the home page
+//error handling for search music
 module.exports.playlists = async (req, res) => {
   try {
     const {
       body: { playlists },
-    } = await spotifyApi.getFeaturedPlaylists({ limit: 10 });
+    } = await spotifyApi.getFeaturedPlaylists({ limit: 4 });
     const latestPlaylists = playlists.items;
     res.json(latestPlaylists);
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
   }
-}
+};
 
 //get the 4 featured albums and render them to the home page
 module.exports.albums = async (req, res) => {
   try {
-    const { body: { albums } } = await spotifyApi.getNewReleases({ limit: 10 });
+    const {
+      body: { albums },
+    } = await spotifyApi.getNewReleases({ limit: 4 });
     const albumss = albums.items;
     const latestAlbums = albumss.filter((album) => album.images[0]);
     res.json(latestAlbums);
@@ -69,15 +68,41 @@ module.exports.albums = async (req, res) => {
     console.error(error);
     res.sendStatus(500);
   }
-}
+};
 
+module.exports.artists = async (req, res) => {
+  try {
+    // get the artists from the latest releases (getNewReleases returns
+    // body.albums.items, not body.items)
+    const {
+      body: {
+        albums: { items },
+      },
+    } = await spotifyApi.getNewReleases({ limit: 10 });
+    // collect up to 4 unique artists from the new releases
+    const seen = new Set();
+    const artists = [];
+    for (const item of items) {
+      const artist = item.artists[0];
+      if (artist && !seen.has(artist.id)) {
+        seen.add(artist.id);
+        artists.push({ id: artist.id, name: artist.name });
+      }
+      if (artists.length === 4) break;
+    }
+    res.json(artists);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
 
 //on click of the playlist, get the playlist id and render the tracks to the musiclist page
 module.exports.playlistId = (req, res) => {
   const playlistId = req.params.id;
   spotifyApi
     .getPlaylist(playlistId)
-    .then( async (data) => {
+    .then(async (data) => {
       const tracks = data.body.tracks.items;
       const simplifiedTracks = tracks.map((track) => ({
         name: track.track.name,
@@ -89,17 +114,22 @@ module.exports.playlistId = (req, res) => {
       }));
       const poster = data.body.images[0].url;
       const user = await User.findById(req.session.passport.user);
-      return res.render("MusicList", { layout: "base1", title: "List", user: user, tracks: simplifiedTracks, poster: poster });
+      return res.render("MusicList", {
+        layout: "base1",
+        title: "List",
+        user: user,
+        tracks: simplifiedTracks,
+        poster: poster,
+      });
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
-}
-
+};
 
 //on click of the album, get the album id and render the tracks to the musiclist page
-module.exports.albumId =  (req, res) => {
+module.exports.albumId = (req, res) => {
   const albumId = req.params.id;
   spotifyApi
     .getAlbumTracks(albumId)
@@ -108,18 +138,23 @@ module.exports.albumId =  (req, res) => {
       const simplifiedTracks = tracks.map((track) => ({
         name: track.name,
         artist: track.artists[0].name,
-        duration: track.duration_ms,
+        duration: millisToMinutesAndSeconds(track.duration_ms),
         id: track.id,
         preview_url: track.preview_url,
       }));
       const user = await User.findById(req.session.passport.user);
-      return res.render("MusicList", { layout: "base1", title: "List", user: user, tracks: simplifiedTracks });
+      return res.render("MusicList", {
+        layout: "base1",
+        title: "List",
+        user: user,
+        tracks: simplifiedTracks,
+      });
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
-}
+};
 
 //on click of the track, get the track id and send the track to the player
 module.exports.trackId = (req, res) => {
@@ -143,32 +178,22 @@ module.exports.trackId = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
-}
+};
 
-
-// router.get('/addtofavourites/:id', isAuthenticated, addToFavourites);
-// const favouriteSchema = new mongoose.Schema({
-//     songId: String,
-//     songName: String,
-//     songArtist: String,
-//     songImage: String,
-//     songUrl: String,
-//     songDuration: String,
-//     userId: String,
-//     date: {
-//         type: Date,
-//         default: Date.now
-//     },
-// });
-    
 module.exports.addToFavourites = async (req, res) => {
   try {
     const trackId = req.params.id;
-    const check = await Favourite.findOne({ id: trackId, userId: req.session.passport.user });
+    const check = await Favourite.findOne({
+      id: trackId,
+      userId: req.session.passport.user,
+    });
     if (check) {
-      await Favourite.deleteOne({ id: trackId });
-      console.log('Track removed from favourites');
-      return res.status(200).send('Track removed from favourites');
+      await Favourite.deleteOne({
+        id: trackId,
+        userId: req.session.passport.user,
+      });
+      console.log("Track removed from favourites");
+      return res.status(200).send("Track removed from favourites");
     }
     const track = await spotifyApi.getTrack(trackId);
     const simplifiedTrack = {
@@ -182,24 +207,20 @@ module.exports.addToFavourites = async (req, res) => {
     };
     const newFavourite = new Favourite(simplifiedTrack);
     await newFavourite.save();
-    res.status(200).send('Track added to favourites');
-  }
-  catch (error) {
+    res.status(200).send("Track added to favourites");
+  } catch (error) {
     console.error(error);
-    res.status(500).send('Failed to add/remove track to/from favourites');
+    res.status(500).send("Failed to add/remove track to/from favourites");
   }
 };
-
 
 module.exports.fetchFavourites = async (req, res) => {
   const user = await User.findById(req.session.passport.user);
   const favourites = await Favourite.find({ userId: user._id }).lean();
   res.render("LikedSongs", {
-      layout: "base1",
-      title: "Liked Songs",
-      user: user,
-      tracks: favourites,
-    });
-}
-
-
+    layout: "base1",
+    title: "Liked Songs",
+    user: user,
+    tracks: favourites,
+  });
+};

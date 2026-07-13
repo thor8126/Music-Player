@@ -1,183 +1,115 @@
+/* ===========================================================
+   Card grid (Home / My Library)
+   =========================================================== */
 .custom_box {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 30px;
-  }
-  
-  .__card {
-    background-color: #fff;
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 5px 10px;
-    padding-bottom: 0;
-    position: relative;
-    width: 20%;
-    min-height: 180px;
-  }
-  
-  .__card:hover {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .__card img {
-    width: 100%;
-  }
-  
-  .__card h3 {
-    font-size: 1em;
-    font-weight: 500;
-    margin: 0;
-    padding: 0;
-    margin-top: 10px;
-    color: #333;
-  }
-  
-  .__card p {
-    font-size: 1em;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    color: #333;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin: 0 0 8px;
+}
 
-  
-  .playlist-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0;
-    padding: 5px 0;
+.__card {
+  position: relative;
+  background-color: var(--bg-card);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.__card:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.__card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.__card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 14px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.__card p {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-top: 4px;
+  color: var(--text-secondary);
+}
+
+/* floating play button (Spotify style) */
+.__card a {
+  position: absolute;
+  right: 24px;
+  bottom: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: #000;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+    background-color 0.2s ease;
+}
+
+.__card:hover a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.__card a:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.06);
+  color: #000;
+}
+
+.__card a i {
+  font-size: 1.4rem !important;
+  margin-left: 2px;
+}
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
+@media only screen and (max-width: 1024px) {
+  .custom_box {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .playlist-footer a {
-    font-size: 0.8em;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    margin-left: 10px;
-    text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .custom_box {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
-  
-  .playlist-footer i {
-    font-size: 2.5rem;
-    color: #2f80ed;
-  }
-  
-  @media only screen and (max-width: 768px) {
-    .custom_box {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-  
-    .__card {
-      width: 40%;
-    }
-  
-    .__card img {
-      min-height: 150px;
-    }
-  
-    .__card a {
-      font-size: 1em;
-    }
-  
-    .playlist-footer {
-      padding: 10px 0;
-    }
-  
-    .playlist-footer a {
-      font-size: 0.7em;
-      margin-left: 5px;
-    }
-  
-    .playlist-footer i {
-      font-size: 2rem;
-    }
-  }
-  
-  @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .custom_box {
-      flex-wrap: wrap;
-    }
-  
-    .__card {
-      width: 40%;
-    }
-  
-    .__card img {
-      min-height: 150px;
-    }
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .__card {
-      min-height: 200px;
-    }
-  }
-  
 
   .__card a {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 4px;
-    color: #2f80ed;
-    text-decoration: none;
-
+    right: 20px;
+    bottom: 74px;
+    width: 42px;
+    height: 42px;
   }
+}
 
-  .__card a:hover {
-    transform: scale(1.1);
-    color: #2f80ed;
-    transition: all 0.1s ease-in-out;
+@media only screen and (max-width: 480px) {
+  .custom_box {
+    grid-template-columns: 1fr 1fr;
   }
-
-  .__card a i {
-    font-size: 2rem!important;
-  }
-
-
-  @media only screen and (max-width: 570px) {
-    .custom_box {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-  
-    .__card {
-      min-width: 100%;
-    }
-  
-    .__card img {
-      min-height: 150px;
-    }
-  
-    .__card a {
-      font-size: 1em;
-    }
-  
-    .playlist-footer {
-      padding: 10px 0;
-    }
-  
-    .playlist-footer a {
-      font-size: 0.7em;
-      margin-left: 5px;
-    }
-  
-    .playlist-footer i {
-      font-size: 2rem;
-    }
-  }
+}

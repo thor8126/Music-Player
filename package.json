@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,14 +19,15 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-flash-message": "^3.0.2",
-    "express-handlebars": "^6.0.6",
+    "express-handlebars": "^7.0.2",
     "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
     "handlebars-helpers": "^0.10.0",
     "hbs": "^4.2.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^8.8.3",
+    "mongoose": "^7.0.2",
     "morgan": "^1.10.0",
+    "netlify": "^13.1.10",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.21",
     "passport": "^0.6.0",
